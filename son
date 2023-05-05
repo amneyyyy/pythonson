@@ -393,40 +393,34 @@ def good_filepath(path):
 	"""
 	return str(path).endswith(".wav") and (not str(path).startswith("."))
 
+import pygame
 
-def b1(channel):
-    if GPIO.input(channel) == GPIO.LOW:
-        global p, p1, p2, p3, p4
-        print("1111")
-        try:
-            p.terminate()
-        except:
-            print('Error p')
-        try:
-            p1.terminate()
-        except:
-            print('Error p1')
-        try:
-            p2.terminate()
-        except:
-            print('Error p2')
-        try:
-            p3.terminate()
-        except:
-            print('Error p3')
-        try:
-            p4.terminate()
-        except:
-            print('Error p4')
-        client.publish("sb","a")
-        p = multiprocessing.Process(target=play_wav_on_index, args=(files[0], streams[0],))
-        p1 = multiprocessing.Process(target=play_wav_on_index, args=(files[1], streams[2],))
-        p2 = multiprocessing.Process(target=play_wav_on_index, args=(files[2], streams[3],))
-        p.start()
-        p1.start()
-        p2.start()
-		#p3.start()
-		#p4.start()
+pygame.mixer.init()
+
+# Chargement des fichiers audio
+son1 = pygame.mixer.Sound('path/to/son1.wav')
+son2 = pygame.mixer.Sound('path/to/son2.wav')
+son3 = pygame.mixer.Sound('path/to/son3.wav')
+son4 = pygame.mixer.Sound('path/to/son4.wav')
+son5 = pygame.mixer.Sound('path/to/son5.wav')
+
+# Assignation des canaux aux enceintes
+channel1 = pygame.mixer.Channel(0) # Enceinte 1
+channel2 = pygame.mixer.Channel(1) # Enceinte 2
+channel3 = pygame.mixer.Channel(2) # Enceinte 3
+channel4 = pygame.mixer.Channel(3) # Enceinte 4
+channel5 = pygame.mixer.Channel(4) # Enceinte 5
+
+def b1():
+    # Lecture des sons sur les canaux correspondants
+    channel1.play(son1)
+    channel2.play(son2)
+    channel3.play(son3)
+    channel4.play(son4)
+    channel5.play(son5)
+
+
+
 def b2(channel):
     if GPIO.input(channel) == GPIO.LOW:
         global p, p1, p2, p3, p4
